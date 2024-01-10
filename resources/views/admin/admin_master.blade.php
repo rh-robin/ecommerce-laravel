@@ -58,7 +58,7 @@
 	<script src="{{ asset('assets/vendor_components/apexcharts-bundle/irregular-data-series.js') }}"></script>
 	<script src="{{ asset('assets/vendor_components/apexcharts-bundle/dist/apexcharts.js') }}"></script>
 	@if(Session::has('message'))
-  {{ Session::get('message') }}
+  {{ Session::get('message') }} 
   @endif
 
 	<!-- Sunny Admin App -->

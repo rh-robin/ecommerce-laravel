@@ -1,8 +1,12 @@
 <?php
 
+use App\Models\User;
+
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
+use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,19 +19,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+
+
 
 /* route for admin */
 Route::middleware('admin:admin')->group(function () {
@@ -49,3 +43,23 @@ Route::middleware([
         return view('admin.index');
     })->name('dashboard')->middleware('auth:admin');
 });
+
+/* all routes for user */
+
+Route::get('/',[IndexController::class,'index']);
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        return view('dashboard', compact('user'));
+    })->name('dashboard');
+});
+Route::get('/user/logout',[IndexController::class,'userLogout'])->name('user.logout');
+Route::get('/user/profile',[IndexController::class,'userProfile'])->name('user.profile');
+Route::post('/user/profile/store',[IndexController::class,'userProfileStore'])->name('user.profile.store');
+Route::get('/user/change-password',[IndexController::class,'userChangePassword'])->name('user.changePassword');
+Route::post('/user/update-password',[IndexController::class,'userUpdatePassword'])->name('user.updatePassword');
