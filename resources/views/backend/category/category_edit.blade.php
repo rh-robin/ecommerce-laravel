@@ -33,10 +33,9 @@
                </div>
                <!-- /.box-header -->
                <div class="box-body">
-                   <form method="POST" action="{{ route('category.update') }}" enctype="multipart/form-data">
+                   <form method="POST" action="{{ route('category.update') }}">
                     @csrf
                         <input type="hidden" name="id" value="{{ $category->id }}">
-                        <input type="hidden" name="old_image" value="{{ $category->category_image }}">
                         <div class="form-group">
                             <h5>Category Name English <span class="text-danger">*</span></h5>
                             <div class="controls">
@@ -54,11 +53,10 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <h5>Category Image <span class="text-danger">*</span></h5>
-                            <img id="showImage" class="avatar-bordered mb-3" style="width: 200px; height:auto" src="{{ !empty($category->category_image) ? url($category->category_image) : url('upload/noimage.jpg') }}" alt="">
+                            <h5>Category Icon <span class="text-danger">*</span></h5>
                             <div class="controls">
-                                <input type="file" id="category_image" name="category_image" class="form-control"> <div class="help-block"></div></div>
-                            @error('category_image')
+                                <input type="text" name="category_icon" value="{{ old('category_icon') ?? $category->category_icon }}" class="form-control"> <div class="help-block">Enter font awesome icon class</div></div>
+                            @error('category_icon')
                             <div class="form-control-feedback"><small class="text-danger">{{ $message }}</small></div>
                             @enderror
                         </div>
@@ -80,7 +78,7 @@
 
 
 {{-- show selected image with jquery --}}
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(document).ready(function(){
         $('#category_image').change(function(e){
             var reader = new FileReader();
@@ -90,7 +88,7 @@
             reader.readAsDataURL(e.target.files['0']);
         });
     });
-</script>
+</script> --}}
 
 
 

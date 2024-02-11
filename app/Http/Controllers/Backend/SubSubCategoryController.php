@@ -18,14 +18,7 @@ class SubSubCategoryController extends Controller
     }
 
 
-    /* get category wise sub-category */
-    public function getSubCategory($category_id){
-        $subcategory = SubCategory::where('category_id',$category_id)->orderBy('subcategory_name_en', 'ASC')->get();
-        //dd($subcategory);
-        return json_encode($subcategory);
-    }
-
-
+    
     /* store category */
     public function store(Request $request){
         $request->validate([
@@ -103,5 +96,19 @@ class SubSubCategoryController extends Controller
             'alert-type'=> 'success'
         );
         return redirect()->back()->with($notification);
+    }
+
+
+    /* get category wise sub-category */
+    public function getSubCategory($category_id){
+        $subcategory = SubCategory::where('category_id',$category_id)->orderBy('subcategory_name_en', 'ASC')->get();
+        //dd($subcategory);
+        return json_encode($subcategory);
+    }
+
+    /* get subcategory wise sub sub-category */
+    public function getSubSubCategory($subcategory_id){
+        $subsubcategory = SubSubCategory::where('subcategory_id',$subcategory_id)->orderBy('subsubcategory_name_en', 'ASC')->get();
+        return json_encode($subsubcategory);
     }
 }

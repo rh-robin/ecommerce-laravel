@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="{{ asset('backend/css/skin_color.css') }}">
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
      
   </head>
 
@@ -64,6 +65,14 @@
 	<!-- Sunny Admin App -->
 	<script src="{{ asset('backend/js/template.js') }}"></script>
 	<script src="{{ asset('backend/js/pages/dashboard.js') }}"></script>
+
+  {{-- scripts for tags input --}}
+  <script src="{{ asset('assets/vendor_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js') }}"></script>
+
+  {{-- scripts for ck editor --}}
+  <script src="{{ asset('assets/vendor_components/ckeditor/ckeditor.js') }}"></script>
+	<script src="{{ asset('assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js') }}s"></script>
+	<script src="{{ asset('backend/js/pages/editor.js') }}"></script>
 
   {{-- scripts for data table --}}
   <script src="{{ asset('assets/vendor_components/datatable/datatables.min.js') }}"></script>

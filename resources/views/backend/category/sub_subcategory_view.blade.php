@@ -135,11 +135,11 @@
 </section>
 
 
+{{-- scripts to get category wise subcategory --}}
 <script type="text/javascript">
     $(document).ready(function(){
         $('select[name="category_id"]').on('change', function(){
             var category_id = $(this).val();
-            console.log(category_id);
             if(category_id){
                 $.ajax({
                     url: "{{ url('/category/subcategory/ajax') }}/"+category_id,

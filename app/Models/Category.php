@@ -13,6 +13,6 @@ class Category extends Model
         "category_name_bn",
         "category_slug_en",
         "category_slug_bn",
-        "category_image",
+        "category_icon",
     ] ;
 }

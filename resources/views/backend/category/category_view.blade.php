@@ -38,7 +38,7 @@
                            <tr>
                                <th width="25%" style="padding: 5px">Category Name English</th>
                                <th width="25%" style="padding: 5px">Category Name Bangla</th>
-                               <th width="25%" style="padding: 5px">Category Image</th>
+                               <th width="25%" style="padding: 5px">Category Icon</th>
                                <th width="25%" style="padding: 5px">Action</th>
                            </tr>
                        </thead>
@@ -47,7 +47,7 @@
                         <tr>
                             <td width="25%" style="padding: 5px">{{ $category->category_name_en }}</td>
                             <td width="25%" style="padding: 5px">{{ $category->category_name_bn }}</td>
-                            <td width="25%" style="padding: 5px"><img src="{{ asset($category->category_image) }}" alt=""></td>
+                            <td width="25%" style="padding: 5px"><i class="{{ $category->category_icon }}"></i></td>
                             <td width="25%" style="padding: 5px" class="text-center">
                              <a href="{{ route('category.edit',$category->id) }}" class="btn btn-sm mx-1 btn-info" title="Edit Data"><i class="fa fa-pencil "></i></a>
                              <a href="{{ route('category.delete',$category->id) }}" id="delete" class="btn btn-sm mx-1 btn-danger" title="Delete Data"><i class="fa fa-trash "></i></a>
@@ -74,7 +74,7 @@
                </div>
                <!-- /.box-header -->
                <div class="box-body">
-                   <form method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data">
+                   <form method="POST" action="{{ route('category.store') }}">
                     @csrf
                         <div class="form-group">
                             <h5>Category Name English <span class="text-danger">*</span></h5>
@@ -93,10 +93,10 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <h5>Category Image <span class="text-danger">*</span></h5>
+                            <h5>Category Icon <span class="text-danger"></span></h5>
                             <div class="controls">
-                                <input type="file" name="category_image" class="form-control"> <div class="help-block"></div></div>
-                            @error('category_image')
+                                <input type="text" name="category_icon" value="{{ old('category_icon') }}" class="form-control"> <div class="help-block">Enter font awesome icon class</div></div>
+                            @error('category_icon')
                             <div class="form-control-feedback"><small class="text-danger">{{ $message }}</small></div>
                             @enderror
                         </div>

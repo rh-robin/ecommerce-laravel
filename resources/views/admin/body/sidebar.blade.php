@@ -32,7 +32,7 @@
 		
         <li class="treeview {{ ($prefix === '/brand') ? 'active' : '' }}">
           <a href="#">
-            <i data-feather="message-circle"></i>
+            <i class="fa-solid fa-handshake"></i>
             <span>Brand</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>
@@ -46,7 +46,7 @@
 
         <li class="treeview {{ ($prefix === '/category') ? 'active' : '' }}">
           <a href="#">
-            <i data-feather="message-circle"></i>
+            <i class="fa-solid fa-list"></i>
             <span>Category</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>
@@ -56,6 +56,20 @@
             <li class="{{ ($route === 'category.view') ? 'active' : '' }}"><a href="{{ route('category.view') }}"><i class="ti-more"></i>All Categories</a></li>
             <li class="{{ ($route === 'subcategory.view') ? 'active' : '' }}"><a href="{{ route('subcategory.view') }}"><i class="ti-more"></i>All Sub Categories</a></li>
             <li class="{{ ($route === 'subsubcategory.view') ? 'active' : '' }}"><a href="{{ route('subsubcategory.view') }}"><i class="ti-more"></i>All Sub Sub-Categories</a></li>
+          </ul>
+        </li> 
+
+        <li class="treeview {{ ($prefix === '/product') ? 'active' : '' }}">
+          <a href="#">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span>Product</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="{{ ($route === 'product.view') ? 'active' : '' }}"><a href="{{ route('product.view') }}"><i class="ti-more"></i>All Products</a></li>
+            <li class="{{ ($route === 'product.add') ? 'active' : '' }}"><a href="{{ route('product.add') }}"><i class="ti-more"></i>Add Product</a></li>
           </ul>
         </li> 
 		  
