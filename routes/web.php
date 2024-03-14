@@ -8,10 +8,12 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubSubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\SliderController;
 
 
 // frontend controllers
-use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\LanguageController;
 
 
 use App\Models\User;
@@ -34,30 +36,31 @@ use Illuminate\Support\Facades\Route;
 
 
 
-/* route for admin */
+/* route for admin login */
 Route::middleware('admin:admin')->group(function () {
     Route::get('admin/login',[AdminController::class,'loginForm'])->name('admin.logiin');
     Route::post('admin/login',[AdminController::class,'store'])->name('admin.login');
     
 });
 
-/* admin all routes */
+/* ********** admin all routes ************* */
 Route::middleware([
     'auth:sanctum,admin', config('jetstream.auth_session'),'verified',
     ])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admin.index');
-    })->name('admin.dashboard');
+    })->name('admin.dashboard')->middleware('auth:admin');
+}); 
+
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
     /* Admin profile related all routes */
-    Route::prefix('admin')->group(function () {
-        Route::get('logout', [AdminController::class, 'destroy'])->name('admin.logout');
-        Route::get('profile', [AdminProfileController::class, 'adminProfile'])->name('admin.profile');
-        Route::get('profile/edit', [AdminProfileController::class, 'adminProfileEdit'])->name('admin.profile.edit');
-        Route::post('profile/update', [AdminProfileController::class, 'adminProfileUpdate'])->name('admin.profile.update');
-        Route::get('profile/change_password', [AdminProfileController::class, 'adminProfileChangePass'])->name('admin.profile.change_password');
-        Route::post('profile/update_password', [AdminProfileController::class, 'adminProfileUpdatePass'])->name('admin.profile.update_password');
-    });
+    Route::get('logout', [AdminController::class, 'destroy'])->name('admin.logout');
+    Route::get('profile', [AdminProfileController::class, 'adminProfile'])->name('admin.profile');
+    Route::get('profile/edit', [AdminProfileController::class, 'adminProfileEdit'])->name('admin.profile.edit');
+    Route::post('profile/update', [AdminProfileController::class, 'adminProfileUpdate'])->name('admin.profile.update');
+    Route::get('profile/change_password', [AdminProfileController::class, 'adminProfileChangePass'])->name('admin.profile.change_password');
+    Route::post('profile/update_password', [AdminProfileController::class, 'adminProfileUpdatePass'])->name('admin.profile.update_password');
 
     /* admin brand routes */
     Route::prefix('brand')->group(function () {
@@ -108,7 +111,19 @@ Route::middleware([
         Route::get('/inactive/{id}',[ProductController::class,'inactive'])->name('product.inactive');
         Route::get('/delete/{id}',[ProductController::class,'delete'])->name('product.delete');
     });
-}); // end admin all routes
+
+    /* admin slider routes */
+    Route::prefix('slider')->group(function () {
+        Route::get('/view',[SliderController::class,'view'])->name('slider.view');
+        Route::post('/store',[SliderController::class,'store'])->name('slider.store');
+        Route::get('/edit/{id}',[SliderController::class,'edit'])->name('slider.edit');
+        Route::post('/update',[SliderController::class,'update'])->name('slider.update');
+        Route::get('/active/{id}',[SliderController::class,'active'])->name('slider.active');
+        Route::get('/inactive/{id}',[SliderController::class,'inactive'])->name('slider.inactive');
+        Route::get('/delete/{id}',[SliderController::class,'delete'])->name('slider.delete');
+    }); // end all slider routes
+}); /* ********** end admin all routes ************* */
+
 
 
 
@@ -136,10 +151,13 @@ Route::post('/user/update-password',[IndexController::class,'userUpdatePassword'
 
 
 
+/* ******************* frontend all routes ****************** */
+/* ******* language all routes ******** */
+Route::get('/language/english',[LanguageController::class,'english'])->name('language.english');
+Route::get('/language/bangla',[LanguageController::class,'bangla'])->name('language.bangla');
 
-
-
-
+// Frontend Product Details Page url 
+Route::get('/product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']);
 
 
 
